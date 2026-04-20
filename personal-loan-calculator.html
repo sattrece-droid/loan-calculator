@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Loan Calculator — Free Monthly Payment Calculator</title>
+  <meta name="description" content="Calculate your monthly personal loan payment instantly. Enter loan amount, rate, and term to see total interest, payment schedule, and amortization table.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/personal-loan-calculator">
+  
+  <!-- Open Graph (for social sharing) -->
+  <meta property="og:title" content="Personal Loan Calculator">
+  <meta property="og:description" content="Free online personal loan calculator. Instant results.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://yourdomain.com/img/social-share.jpg"> <!-- Recommended: 1200x630 image -->
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/img/favicon.ico" sizes="any">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png"> <!-- 180x180 -->
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Personal Loan Calculator",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Calculate monthly payments, total interest, and amortization schedule for personal loans."
+  }
+  </script>
+
+<!-- Google AdSense (add after approval) -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX" crossorigin="anonymous"></script> -->
+
+  <!-- Cookie Consent Banner (Google-certified CMP required for AdSense in EEA/UK) -->
+  <!-- Example: Add your CMP script here, e.g., from OneTrust, Cookiebot, etc. -->
+  <!-- <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="YOUR_DOMAIN_ID"></script> -->
+
+  <!-- Tailwind CSS via CDN (swap for compiled CSS in production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Navigation -->
+  <nav class="bg-indigo-900 text-white px-4 py-3 flex items-center justify-between">
+    <a href="/" class="font-bold text-lg tracking-tight">CalcLoan</a>
+    <div class="hidden md:flex gap-6 text-sm">
+      <a href="/personal-loan-calculator" class="hover:text-emerald-300">Personal Loan</a>
+      <a href="/mortgage-calculator" class="hover:text-emerald-300">Mortgage</a>
+      <a href="/car-loan-calculator" class="hover:text-emerald-300">Car Loan</a>
+      <a href="/compound-interest-calculator" class="hover:text-emerald-300">Compound Interest</a>
+    </div>
+  </nav>
+
+  <!-- AdSense — leaderboard top -->
+  <div class="flex justify-center py-2 bg-white border-b">
+    <!-- ins class="adsbygoogle" ... -->
+  </div>
+
+  <!-- Main content -->
+  <main class="max-w-3xl mx-auto px-4 py-8">
+
+    <h1 class="text-3xl font-bold text-indigo-900 mb-2">Personal Loan Calculator</h1>
+    <p class="text-gray-500 mb-6">Enter your loan details to instantly calculate your monthly payment, total interest, and full amortization schedule.</p>
+
+    <!-- Calculator card -->
+    <div class="bg-white rounded-2xl shadow-sm border p-6 mb-6">
+      <div class="grid md:grid-cols-3 gap-4">
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Loan Amount</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2.5 text-gray-400">$</span>
+            <input id="loanAmount" type="number" value="10000" min="100" max="10000000"
+              class="w-full pl-7 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              oninput="calculate()">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Annual Interest Rate</label>
+          <div class="relative">
+            <input id="interestRate" type="number" value="7.5" min="0.1" max="100" step="0.1"
+              class="w-full pr-8 pl-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              oninput="calculate()">
+            <span class="absolute right-3 top-2.5 text-gray-400">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Loan Term</label>
+          <div class="flex gap-2">
+            <input id="loanTerm" type="number" value="36" min="1" max="600"
+              class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              oninput="calculate()">
+            <select id="termUnit" onchange="calculate()"
+              class="px-2 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+              <option value="months">Mo</option>
+              <option value="years">Yr</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results card -->
+    <div id="results" class="bg-indigo-900 text-white rounded-2xl p-6 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Monthly Payment</div>
+          <div id="monthlyPayment" class="text-2xl font-bold">$0.00</div>
+        </div>
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Total Payment</div>
+          <div id="totalPayment" class="text-xl font-semibold">$0.00</div>
+        </div>
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Total Interest</div>
+          <div id="totalInterest" class="text-xl font-semibold">$0.00</div>
+        </div>
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Interest %</div>
+          <div id="interestPct" class="text-xl font-semibold">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="bg-white rounded-2xl shadow-sm border p-6 mb-6">
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">Payment Breakdown</h2>
+      <div class="flex justify-center">
+        <canvas id="breakdownChart" width="280" height="280"></canvas>
+      </div>
+    </div>
+
+    <!-- AdSense — mid-page rectangle -->
+    <div class="flex justify-center my-4">
+      <!-- ins class="adsbygoogle" ... -->
+    </div>
+
+    <!-- Affiliate CTA -->
+    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 mb-6">
+      <p class="font-semibold text-emerald-800 mb-1">Ready to apply?</p>
+      <p class="text-sm text-emerald-700 mb-3">Compare personal loan rates from top lenders — check your rate without affecting your credit score.</p>
+      <a href="YOUR_AFFILIATE_LINK" target="_blank" rel="noopener sponsored"
+        class="inline-block bg-emerald-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-emerald-700 transition">
+        Compare Loan Rates →
+      </a>
+    </div>
+
+    <!-- Amortization table -->
+    <div class="bg-white rounded-2xl shadow-sm border p-6 mb-6">
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">Amortization Schedule
+        <button onclick="toggleAmort()" class="text-sm text-indigo-600 ml-2">[show/hide]</button>
+      </h2>
+      <div id="amortTable" class="hidden overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
+            <tr>
+              <th class="px-3 py-2 text-left">Month</th>
+              <th class="px-3 py-2 text-right">Payment</th>
+              <th class="px-3 py-2 text-right">Principal</th>
+              <th class="px-3 py-2 text-right">Interest</th>
+              <th class="px-3 py-2 text-right">Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amortBody" class="divide-y divide-gray-100"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SEO content section -->
+    <article class="prose prose-gray max-w-none">
+      <h2>How to Use This Personal Loan Calculator</h2>
+      <p>Enter your loan amount, annual interest rate, and term to instantly see your monthly payment. The calculator uses the standard amortization formula to give you exact figures...</p>
+      <h3>How Personal Loan Interest Works</h3>
+      <p>Personal loans use simple amortization: each monthly payment covers accrued interest first, then reduces the principal...</p>
+      <h3>What Is a Good Personal Loan Rate?</h3>
+      <p>As of 2026, average personal loan APRs range from 8%–36% depending on credit score. Borrowers with excellent credit (720+) typically qualify for rates under 12%...</p>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-400 text-sm py-8 mt-12">
+    <div class="max-w-3xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-4">
+      <div>
+        <p class="font-semibold text-white mb-1">CalcLoan</p>
+        <p>Free financial calculators for smarter decisions.</p>
+      </div>
+      <div class="flex gap-6">
+<a href="/about" class="hover:text-white">About</a>
+<a href="/privacy-policy" class="hover:text-white">Privacy Policy</a>
+<a href="/terms-of-service" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/personal-loan.js"></script>
+</body>
+</html>
