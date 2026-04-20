@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amortization Schedule Calculator — Loan Repayment Table</title>
+  <meta name="description" content="Generate a full amortization schedule for any loan. See month-by-month breakdown of principal, interest, and remaining balance.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/amortization-schedule">
+  
+  <!-- Open Graph (for social sharing) -->
+  <meta property="og:title" content="Amortization Schedule Calculator">
+  <meta property="og:description" content="Free online amortization schedule generator. Instant results.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://yourdomain.com/img/social-share.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/img/favicon.ico" sizes="any">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Amortization Schedule Calculator",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Generate a detailed loan amortization schedule."
+  }
+  </script>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Navigation -->
+  <nav class="bg-indigo-900 text-white px-4 py-3 flex items-center justify-between">
+    <a href="/" class="font-bold text-lg tracking-tight">CalcLoan</a>
+    <div class="hidden md:flex gap-6 text-sm">
+      <a href="/personal-loan-calculator.html" class="hover:text-emerald-300">Personal Loan</a>
+      <a href="/mortgage-calculator.html" class="hover:text-emerald-300">Mortgage</a>
+      <a href="/car-loan-calculator.html" class="hover:text-emerald-300">Car Loan</a>
+      <a href="/compound-interest-calculator.html" class="hover:text-emerald-300">Compound Interest</a>
+    </div>
+  </nav>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+
+    <h1 class="text-3xl font-bold text-indigo-900 mb-2">Amortization Schedule Calculator</h1>
+    <p class="text-gray-500 mb-6">Generate a detailed month-by-month breakdown of your loan repayment.</p>
+
+    <!-- Calculator card -->
+    <div class="bg-white rounded-2xl shadow-sm border p-6 mb-6">
+      <div class="grid md:grid-cols-3 gap-4">
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Loan Amount ($)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2.5 text-gray-400">$</span>
+            <input id="loanAmount" type="number" value="100000" min="100" max="10000000"
+              class="w-full pl-7 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              oninput="calculateAmortization()">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Annual Interest Rate (%)</label>
+          <div class="relative">
+            <input id="interestRate" type="number" value="4.5" min="0.1" max="100" step="0.1"
+              class="w-full pr-8 pl-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              oninput="calculateAmortization()">
+            <span class="absolute right-3 top-2.5 text-gray-400">%</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Loan Term (Years)</label>
+          <input id="loanTermYears" type="number" value="30" min="1" max="60"
+            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            oninput="calculateAmortization()">
+        </div>
+
+        <div class="md:col-span-3">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Optional: Extra Monthly Payment ($)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2.5 text-gray-400">$</span>
+            <input id="extraPayment" type="number" value="0" min="0"
+              class="w-full pl-7 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              oninput="calculateAmortization()">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results Summary -->
+    <div id="results" class="bg-indigo-900 text-white rounded-2xl p-6 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Monthly Payment</div>
+          <div id="monthlyPayment" class="text-2xl font-bold">$0.00</div>
+        </div>
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Total Interest Paid</div>
+          <div id="totalInterest" class="text-xl font-semibold">$0.00</div>
+        </div>
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Years Saved</div>
+          <div id="yearsSaved" class="text-xl font-semibold">0</div>
+        </div>
+        <div>
+          <div class="text-xs text-indigo-300 uppercase tracking-wide mb-1">Interest Saved</div>
+          <div id="interestSaved" class="text-xl font-semibold">$0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amortization table -->
+    <div class="bg-white rounded-2xl shadow-sm border p-6 mb-6">
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">Detailed Amortization Schedule</h2>
+      <div class="flex justify-end mb-4">
+        <button onclick="downloadCSV()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 transition">
+          Download as CSV
+        </button>
+      </div>
+      <div id="amortTable" class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
+            <tr>
+              <th class="px-3 py-2 text-left">Month</th>
+              <th class="px-3 py-2 text-right">Payment</th>
+              <th class="px-3 py-2 text-right">Extra</th>
+              <th class="px-3 py-2 text-right">Principal</th>
+              <th class="px-3 py-2 text-right">Interest</th>
+              <th class="px-3 py-2 text-right">Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amortBody" class="divide-y divide-gray-100"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SEO content section -->
+    <article class="prose prose-gray max-w-none">
+      <h2>How to Use This Amortization Schedule Calculator</h2>
+      <p>Enter your loan amount, annual interest rate, and loan term to generate a full month-by-month repayment schedule...</p>
+      <h3>What is an Amortization Schedule?</h3>
+      <p>An amortization schedule is a table detailing each periodic payment on an amortizing loan (typically a mortgage or car loan), as generated by an amortization calculator. Each amortization schedule details the amount of principal and interest contained in each payment until the loan is paid off...</p>
+      <h3>Benefits of an Amortization Schedule</h3>
+      <p>Understanding your amortization schedule helps you see how much interest you pay over the life of the loan and how extra payments can accelerate your payoff...</p>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-400 text-sm py-8 mt-12">
+    <div class="max-w-3xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-4">
+      <div>
+        <p class="font-semibold text-white mb-1">CalcLoan</p>
+        <p>Free financial calculators for smarter decisions.</p>
+      </div>
+      <div class="flex gap-6">
+        <a href="/about.html" class="hover:text-white">About</a>
+        <a href="/privacy-policy.html" class="hover:text-white">Privacy Policy</a>
+        <a href="/terms-of-service.html" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/amortization.js"></script>
+</body>
+</html>
