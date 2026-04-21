@@ -886,15 +886,15 @@ gtag('event', 'affiliate_click', {
 ## 11. Launch Checklist
 
 ### Week 1 — Development
-- [ ] Register domain on Namecheap
-- [ ] Create GitHub repo (`loan-calculator` or site name)
-- [ ] Connect repo to Cloudflare Pages
-- [ ] Build `index.html` homepage with all calculator links
-- [ ] Build Personal Loan Calculator (highest ROI for dev time)
-- [ ] Build Compound Interest Calculator
-- [ ] Build Simple Interest Calculator
-- [ ] Add `privacy-policy.html` (required for AdSense — use a free generator like termly.io)
-- [ ] Add `terms-of-service.html` with financial disclaimer
+- [X] Register domain on Namecheap
+- [X] Create GitHub repo (`loan-calculator` or site name)
+- [X] Connect repo to Cloudflare Pages
+- [X] Build `index.html` homepage with all calculator links
+- [X] Build Personal Loan Calculator (highest ROI for dev time)
+- [X] Build Compound Interest Calculator
+- [X] Build Simple Interest Calculator
+- [X] Add `privacy-policy.html` (required for AdSense — use a free generator like termly.io)
+- [X] Add `terms-of-service.html` with financial disclaimer
 - [ ] Add `robots.txt` and `sitemap.xml`
 - [ ] Add `favicon.ico`, `icon.svg`, and `apple-touch-icon.png`
 - [ ] Test all calculators on mobile (Chrome DevTools)
