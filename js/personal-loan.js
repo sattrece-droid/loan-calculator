@@ -62,14 +62,21 @@ function renderAmortTable(principal, monthlyRate, monthly, months) {
     const interest  = balance * monthlyRate;
     const princ     = monthly - interest;
     balance        -= princ;
-    const row = `<tr class="hover:bg-gray-50">
-      <td class="px-3 py-2 text-gray-500">${m}</td>
-      <td class="px-3 py-2 text-right">${fmt(monthly)}</td>
-      <td class="px-3 py-2 text-right text-indigo-700">${fmt(princ)}</td>
-      <td class="px-3 py-2 text-right text-red-500">${fmt(interest)}</td>
-      <td class="px-3 py-2 text-right font-medium">${fmt(Math.max(0, balance))}</td>
-    </tr>`;
-    body.insertAdjacentHTML('beforeend', row);
+    const tr = document.createElement('tr');
+    tr.className = 'hover:bg-gray-50';
+    [
+      ["px-3 py-2 text-gray-500",              m],
+      ["px-3 py-2 text-right",                 fmt(monthly)],
+      ["px-3 py-2 text-right text-indigo-700", fmt(princ)],
+      ["px-3 py-2 text-right text-red-500",    fmt(interest)],
+      ["px-3 py-2 text-right font-medium",     fmt(Math.max(0, balance))],
+    ].forEach(([cls, val]) => {
+      const td = document.createElement('td');
+      td.className = cls;
+      td.textContent = val;
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
   }
 }
 

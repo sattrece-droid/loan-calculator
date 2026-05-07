@@ -1,4 +1,3 @@
-let chart = null; // No chart for amortization table, but keeping for consistency if needed later
 
 function calculateAmortization() {
   const loanAmount    = parseFloat(document.getElementById("loanAmount").value) || 0;
@@ -76,16 +75,23 @@ function renderAmortizationTable(data) {
   const body = document.getElementById("amortBody");
   body.innerHTML = "";
 
+  const cells = [
+    ["px-3 py-2 text-gray-500",        r => r.month],
+    ["px-3 py-2 text-right",           r => fmt(r.payment)],
+    ["px-3 py-2 text-right text-emerald-600", r => fmt(r.extra)],
+    ["px-3 py-2 text-right text-indigo-700",  r => fmt(r.principal)],
+    ["px-3 py-2 text-right text-red-500",     r => fmt(r.interest)],
+    ["px-3 py-2 text-right font-medium",      r => fmt(r.balance)],
+  ];
   data.forEach(row => {
-    const tr = `<tr>
-      <td class="px-3 py-2 text-gray-500">${row.month}</td>
-      <td class="px-3 py-2 text-right">${fmt(row.payment)}</td>
-      <td class="px-3 py-2 text-right text-emerald-600">${fmt(row.extra)}</td>
-      <td class="px-3 py-2 text-right text-indigo-700">${fmt(row.principal)}</td>
-      <td class="px-3 py-2 text-right text-red-500">${fmt(row.interest)}</td>
-      <td class="px-3 py-2 text-right font-medium">${fmt(row.balance)}</td>
-    </tr>`;
-    body.insertAdjacentHTML("beforeend", tr);
+    const tr = document.createElement("tr");
+    cells.forEach(([cls, val]) => {
+      const td = document.createElement("td");
+      td.className = cls;
+      td.textContent = val(row);
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
   });
 }
 
