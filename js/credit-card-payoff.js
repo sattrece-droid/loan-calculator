@@ -50,26 +50,33 @@ function calculateCreditCardPayoff() {
 
   // Minimum payment comparison
   if (minPayment > 0 && monthlyPayment > minPayment) {
-    let minPayoffMonths = 0;
-    let minTotalInterestPaid = 0;
-    let minBalance = currentBalance;
+    // Guard: if min payment can't cover interest, debt never clears — show warning
+    if (minPayment <= currentBalance * monthlyRate) {
+      document.getElementById("minPayoffMonths").textContent = "Never (payment too low)";
+      document.getElementById("interestSaved").textContent = "-";
+      document.getElementById("minPaymentComparison").classList.remove("hidden");
+    } else {
+      let minPayoffMonths = 0;
+      let minTotalInterestPaid = 0;
+      let minBalance = currentBalance;
 
-    while (minBalance > 0 && minPayoffMonths < 1200) {
-      const interestForMonth = minBalance * monthlyRate;
-      const principalPaid = minPayment - interestForMonth;
+      while (minBalance > 0 && minPayoffMonths < 1200) {
+        const interestForMonth = minBalance * monthlyRate;
+        const principalPaid = minPayment - interestForMonth;
 
-      minBalance -= principalPaid;
-      minTotalInterestPaid += interestForMonth;
-      minPayoffMonths++;
+        minBalance -= principalPaid;
+        minTotalInterestPaid += interestForMonth;
+        minPayoffMonths++;
 
-      if (minBalance <= 0) {
-        minBalance = 0;
-        break;
+        if (minBalance <= 0) {
+          minBalance = 0;
+          break;
+        }
       }
+      document.getElementById("minPayoffMonths").textContent = `${minPayoffMonths} months`;
+      document.getElementById("interestSaved").textContent = fmt(minTotalInterestPaid - totalInterestPaid);
+      document.getElementById("minPaymentComparison").classList.remove("hidden");
     }
-    document.getElementById("minPayoffMonths").textContent = `${minPayoffMonths} months`;
-    document.getElementById("interestSaved").textContent = fmt(minTotalInterestPaid - totalInterestPaid);
-    document.getElementById("minPaymentComparison").classList.remove("hidden");
   } else {
     document.getElementById("minPaymentComparison").classList.add("hidden");
   }

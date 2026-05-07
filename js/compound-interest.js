@@ -25,21 +25,15 @@ function calculateCompound() {
 function renderYearlyChart(principal, rate, n, years, contribution) {
   const labels = [];
   const dataPoints = [];
-  let balance = principal;
-  let totalContributions = principal;
 
   for (let i = 0; i <= years; i++) {
     labels.push(`Year ${i}`);
-    dataPoints.push(balance);
-
-    if (i < years) {
-      // Calculate balance after annual compounding and contributions for the year
-      for (let month = 0; month < 12; month++) {
-        balance += contribution;
-        balance *= (1 + rate / n);
-      }
-      totalContributions += contribution * 12;
-    }
+    // Use the exact FV formula for each year so chart matches the summary results
+    const exp = Math.pow(1 + rate / n, n * i);
+    const yearBalance = (rate === 0)
+      ? principal + contribution * n * i
+      : principal * exp + contribution * ((exp - 1) / (rate / n));
+    dataPoints.push(yearBalance);
   }
 
   const ctx = document.getElementById("compoundChart").getContext("2d");

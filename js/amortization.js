@@ -27,19 +27,19 @@ function calculateAmortization() {
 
   for (let month = 1; currentBalance > 0 && monthsTaken <= loanTermMonths + 1000; month++) { // +1000 to prevent infinite loop on edge cases
     let interestForMonth = currentBalance * monthlyRate;
-    let principalForMonth = monthlyPayment - interestForMonth;
-
-    // Handle extra payment
     let effectiveMonthlyPayment = monthlyPayment + extraPayment;
+
+    // Cap at remaining balance + interest so we never overpay
     if (effectiveMonthlyPayment > currentBalance + interestForMonth) {
-      effectiveMonthlyPayment = currentBalance + interestForMonth; // Don't overpay past balance
-      principalForMonth = currentBalance;
-      interestForMonth = effectiveMonthlyPayment - principalForMonth;
+      effectiveMonthlyPayment = currentBalance + interestForMonth;
     }
 
+    let principalForMonth = effectiveMonthlyPayment - interestForMonth;
+
+    // Guard: if payment can't cover interest (negative amortization), all goes to interest
     if (principalForMonth < 0) {
-      principalForMonth = monthlyPayment;
-      interestForMonth = 0;
+      interestForMonth = effectiveMonthlyPayment;
+      principalForMonth = 0;
     }
 
     currentBalance -= principalForMonth;
@@ -111,18 +111,17 @@ function downloadCSV() {
 
   for (let month = 1; currentBalance > 0 && month <= loanTermMonths + 1000; month++) {
     let interestForMonth = currentBalance * monthlyRate;
-    let principalForMonth = monthlyPayment - interestForMonth;
-
     let effectiveMonthlyPayment = monthlyPayment + extraPayment;
+
     if (effectiveMonthlyPayment > currentBalance + interestForMonth) {
       effectiveMonthlyPayment = currentBalance + interestForMonth;
-      principalForMonth = currentBalance;
-      interestForMonth = effectiveMonthlyPayment - principalForMonth;
     }
 
+    let principalForMonth = effectiveMonthlyPayment - interestForMonth;
+
     if (principalForMonth < 0) {
-      principalForMonth = effectiveMonthlyPayment;
-      interestForMonth = 0;
+      interestForMonth = effectiveMonthlyPayment;
+      principalForMonth = 0;
     }
 
     currentBalance -= principalForMonth;
