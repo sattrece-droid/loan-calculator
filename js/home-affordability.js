@@ -51,7 +51,7 @@ function calculateAffordability() {
   }
 
   // Combine with down payment to get max home price
-  const maxHomePrice28 = (maxLoanAmount228Adjusted > 0 ? maxLoanAmount28Adjusted : 0) + downPayment;
+  const maxHomePrice28 = (maxLoanAmount28Adjusted > 0 ? maxLoanAmount28Adjusted : 0) + downPayment;
   const maxHomePrice36 = (maxLoanAmount36 > 0 ? maxLoanAmount36 : 0) + downPayment;
 
   const finalMaxHomePrice28 = Math.max(0, maxHomePrice28);

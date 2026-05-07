@@ -1,4 +1,4 @@
-plelet chart = null;
+let chart = null;
 
 function calculateMortgage() {
   const homePrice    = parseFloat(document.getElementById("homePrice").value) || 0;

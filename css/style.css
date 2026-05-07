@@ -1,0 +1,41 @@
+/* ClearDebtCalc - custom styles
+ * Tailwind utility classes (loaded via CDN) handle the bulk of styling.
+ * This file holds custom overrides and small enhancements.
+ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide native number input spinners for a cleaner look */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Focus ring consistent across calculators */
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Print-friendly: hide nav/footer/CTAs when printing amortization schedules */
+@media print {
+  nav, footer, .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}
