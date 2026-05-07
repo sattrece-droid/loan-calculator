@@ -8,10 +8,10 @@ function calculateCarLoan() {
   const interestRate = parseFloat(document.getElementById("interestRate").value) / 100 || 0;
   const loanTerm     = parseInt(document.getElementById("loanTerm").value) || 0;
 
-  // Calculate actual loan amount
-  const taxableAmount = vehiclePrice - downPayment - tradeInValue;
+  // Tax applies to (price - trade-in); down payment does not reduce taxable amount
+  const taxableAmount = vehiclePrice - tradeInValue;
   const salesTax      = taxableAmount * salesTaxRate;
-  const principal     = taxableAmount + salesTax;
+  const principal     = vehiclePrice - downPayment - tradeInValue + salesTax;
 
   if (principal <= 0 || interestRate <= 0 || loanTerm <= 0) {
     document.getElementById("loanAmount").textContent = fmt(0);

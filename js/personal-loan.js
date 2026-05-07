@@ -20,7 +20,7 @@ function calculate() {
   document.getElementById('monthlyPayment').textContent = fmt(monthly);
   document.getElementById('totalPayment').textContent   = fmt(totalPayment);
   document.getElementById('totalInterest').textContent  = fmt(totalInterest);
-  document.getElementById('interestPct').textContent    = pct(totalInterest / totalPayment * 100);
+  document.getElementById('interestPct').textContent    = pct(totalInterest / amount * 100);
 
   renderChart(amount, totalInterest);
   renderAmortTable(amount, monthlyRate, monthly, months);

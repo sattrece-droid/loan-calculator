@@ -7,14 +7,23 @@
   <meta name="description" content="Generate a full amortization schedule for any loan. See month-by-month breakdown of principal, interest, and remaining balance.">
   <meta name="robots" content="index, follow">
   <meta name="google-adsense-account" content="ca-pub-8815403583135841">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8815403583135841" crossorigin="anonymous"></script>
   <link rel="canonical" href="https://cleardebtcalc.com/amortization-schedule">
   
   <!-- Open Graph (for social sharing) -->
   <meta property="og:title" content="Amortization Schedule Calculator">
   <meta property="og:description" content="Free online amortization schedule generator. Instant results.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleardebtcalc.com/amortization-schedule.html">
   <meta property="og:image" content="https://cleardebtcalc.com/img/social-share.jpg">
   
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Amortization Schedule Calculator">
+  <meta name="twitter:description" content="Free online amortization schedule generator. Instant results.">
+  <meta name="twitter:image" content="https://cleardebtcalc.com/img/social-share.jpg">
+
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -69,7 +78,7 @@
       <div class="grid md:grid-cols-3 gap-4">
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Loan Amount ($)</label>
+          <label for="loanAmount" class="block text-sm font-medium text-gray-700 mb-1">Loan Amount ($)</label>
           <div class="relative">
             <span class="absolute left-3 top-2.5 text-gray-400">$</span>
             <input id="loanAmount" type="number" value="100000" min="100" max="10000000"
@@ -79,7 +88,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Annual Interest Rate (%)</label>
+          <label for="interestRate" class="block text-sm font-medium text-gray-700 mb-1">Annual Interest Rate (%)</label>
           <div class="relative">
             <input id="interestRate" type="number" value="4.5" min="0.1" max="100" step="0.1"
               class="w-full pr-8 pl-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -89,14 +98,14 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Loan Term (Years)</label>
+          <label for="loanTermYears" class="block text-sm font-medium text-gray-700 mb-1">Loan Term (Years)</label>
           <input id="loanTermYears" type="number" value="30" min="1" max="60"
             class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             oninput="calculateAmortization()">
         </div>
 
         <div class="md:col-span-3">
-          <label class="block text-sm font-medium text-gray-700 mb-1">Optional: Extra Monthly Payment ($)</label>
+          <label for="extraPayment" class="block text-sm font-medium text-gray-700 mb-1">Optional: Extra Monthly Payment ($)</label>
           <div class="relative">
             <span class="absolute left-3 top-2.5 text-gray-400">$</span>
             <input id="extraPayment" type="number" value="0" min="0"
