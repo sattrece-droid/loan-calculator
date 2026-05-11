@@ -2,8 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://cleardebtcalc.com/</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
@@ -55,21 +55,81 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cleardebtcalc.com/privacy-policy.html</loc>
+    <loc>https://cleardebtcalc.com/about.html</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/contact.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/privacy-policy.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://cleardebtcalc.com/terms-of-service.html</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://cleardebtcalc.com/about.html</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://cleardebtcalc.com/blog/</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/debt-snowball-vs-avalanche.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/what-is-debt-to-income-ratio.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/how-to-read-amortization-schedule.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/lower-your-monthly-loan-payment.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/personal-loan-vs-credit-card.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/compound-interest-explained.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/how-much-house-can-you-afford.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleardebtcalc.com/blog/pay-off-car-loan-early.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
